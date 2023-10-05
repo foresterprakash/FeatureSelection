@@ -1,0 +1,327 @@
+---
+title: ''
+geometry: left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom = 2cm
+header-includes:
+- \usepackage{float}
+- \usepackage{sectsty}
+- \usepackage{paralist}
+- \usepackage{setspace}\spacing{1.5}
+- \usepackage{fancyhdr}
+- \usepackage{lastpage}
+- \usepackage{dcolumn}
+- \usepackage{natbib}\bibliographystyle{agsm}
+- \usepackage[nottoc, numbib]{tocbibind}
+output:
+  pdf_document:
+    fig_caption: yes
+    number_sections: yes
+    keep_tex: yes
+  html_document:
+    toc: no
+    df_print: paged
+  word_document:
+    toc: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\allsectionsfont{\raggedright}
+\subsectionfont{\raggedright}
+\subsubsectionfont{\raggedright}
+
+\vspace{0cm}
+
+\pagenumbering{gobble}
+
+
+\begin{centering}
+
+\Large
+
+\doublespacing
+
+\bf Thesis Report
+
+\bf on
+
+\bf FACTORS DETERMINING DIAMETER GROWTH OF SHOREA ROBUSTA (SAL)
+
+
+```{r government_logo, echo=F, out.width="50%", fig.align='center'}
+knitr::include_graphics("AFU_logo.png")
+```
+
+
+\normalsize
+
+\Large
+
+\bf Agriculture and Forestry University
+
+
+\bf Forestry Campus, Hetauda
+
+\vspace{1cm}
+
+\normalsize
+
+\singlespacing
+
+By
+
+\vspace{0.5 cm}
+
+\Large
+
+\bf Binita Ghimire
+
+\Large
+
+\bf B.Sc. Forestry
+
+\bf Fourth Year (Second Semester)
+
+\vspace{1cm}
+
+\normalsize
+
+`r Sys.Date()`
+
+\end{centering}
+
+\newpage
+
+
+\pagenumbering{roman}
+\newpage
+\fontsize{12}{18}
+\tableofcontents
+
+\newpage
+
+\listoftables
+\listoffigures
+
+\newpage
+
+\clearpage
+\pagenumbering{arabic}
+\fontsize{12}{18}
+
+# Methodology
+
+## Study Area
+
+## Source of Data
+
+## Data analysis
+
+# Results
+
+Tree diameter growth from different permanent sample plots.
+
+```{r, echo=FALSE, message=FALSE, warning= FALSE}
+# Load Required packages
+library(readxl)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+###
+raw_dat <- read_excel("E:/For_Binita/feature_selection/combined_final_binita.xlsx",sheet = 1)
+library(dplyr)
+
+##
+dat <- raw_dat %>% 
+  filter(ba_growth_ha > 0) %>% 
+  distinct(plot_id, .keep_all = TRUE) %>%
+  filter(forest_type == "S") %>%
+  select(11,12,35,36,38:52,54)
+
+```
+
+## Correlation for Feature Selection
+Correlation method is simplest method, widely used for the variables having linear relationship, feature selection for modelling.
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cor_mat <- cor(dat[, -which(names(dat) == "ba_growth_ha")], dat$ba_growth_ha, use = "complete.obs")
+
+cor_mat <- as.data.frame(as.table((cor_mat)))
+cor_mat <- cor_mat[,-2]
+cor_mat <- cor_mat %>% arrange(desc(abs(Freq)))
+
+knitr::kable(cor_mat,col.names = c("Features", "correlation coefficient"), caption = 'Correlation of different features to basal area growth', digits = 2)
+
+rm(cor_mat)
+```
+
+## Stepwise Regression 
+This method involves fitting a regression model with all potential predictor variables and then alliteratively adding or removing variables based on their significance until an optimal subset is obtained.
+
+```{r , echo=FALSE, message=FALSE, warning=FALSE, results= 'markup', cache.comments=FALSE, include=TRUE, comment= "", fig.cap= 'Feature and thier coefficients(in modulus) in order'}
+# Load the stats package (if not already loaded)
+
+# Remove rows with missing values
+dat_cleaned <- na.omit(dat)
+
+# Step 1: Pre-processing - Scale the numeric features
+data_scaled <- as.data.frame(scale(dat_cleaned[, -20])) # Exclude the target variable
+
+# Add the target variable back to the scaled data
+data_scaled$growth <- dat_cleaned$ba_growth_ha
+
+# Step 2: Step-wise Regression
+library(MASS)
+
+# Fit the full model including all predictors
+full_model <- lm(growth ~ ., data = data_scaled)
+
+# Perform stepwise regression with both forward and backward selection
+stepwise_model <- stepAIC(full_model, direction = "both", trace = FALSE)
+
+# Step 3: Display Results
+# Option 1: Display the result in a table
+#summary(stepwise_model)
+
+# Option 2: Display the result in a graph (Coefficients plot)
+library(ggplot2)
+
+# Extract the coefficients and feature names
+coefficients_data <- data.frame(Coefficient = coef(stepwise_model)[-1], Feature = names(coef(stepwise_model))[-1])
+
+# Sort the coefficients by magnitude (absolute value) for better visualization
+coefficients_data <- coefficients_data[order(abs(coefficients_data$Coefficient), decreasing = TRUE), ]
+
+# Create a coefficients plot
+coeff_plot <- ggplot(coefficients_data, aes(x = reorder(Feature, abs(Coefficient)), y = Coefficient)) +
+  geom_bar(stat = "identity", fill = "black") +
+  coord_flip() +
+  labs(x = "Features", y = "Coefficient") +
+  theme_minimal()
+
+# Display the plot
+coeff_plot
+
+rm(coeff_plot,coefficients_data,data_scaled,full_model,stepwise_model, dat_cleaned)
+```
+
+# Low variance filtering
+
+The feature selection method "removing the factors having the lowest variability," is commonly known as "low variance filtering" or "constant feature removal." It is a straightforward technique used to eliminate features with very little or no variability in their values. In the context of feature selection, features with low variance do not contribute much information to the model because their values remain almost constant across all observations or samples. Such features are less likely to provide meaningful insights and might even add noise to the model, potentially leading to over fitting.
+
+```{r, echo=FALSE}
+ind_varr <- dat[,-which(names(dat) == 'ba_growth_ha')]
+
+# Calculate the coefficient of variation (CV) for each variable
+cv <- as.data.frame(as.table(sapply(ind_varr, function(x) {
+  sd_x <- sd(x, na.rm = TRUE)  # Ignore NA values when calculating standard deviation
+  mean_x <- mean(x, na.rm = TRUE)  # Ignore NA values when calculating mean
+  
+  if (is.na(mean_x) || mean_x == 0) {
+    return(0)  # To avoid division by zero or when mean is NA, set CV to 0
+  } else {
+    return(abs(sd_x / mean_x) * 100)
+  }
+})))
+cv <- cv %>% arrange(-Freq)
+knitr::kable(cv, caption = 'Results from low variance filtering', 
+             col.names = c("Variables", "Coefficient of variables"), digits = 2)
+
+rm(cv,ind_varr)
+```
+
+## Multicollinearity Test
+
+```{r, echo=FALSE, message=FALSE}
+library(car)
+# Step 1: Calculate VIF values for each predictor
+calculate_vif <- function(data) {
+  require(car)
+  Y <- model.matrix(ba_growth_ha ~ ., data = dat)
+  vif_values <- vif(lm(ba_growth_ha ~ ., data = dat))
+  return(vif_values)
+}
+
+vif_values <- calculate_vif(dat)
+
+# Step 2: Step-wise selection of variables based on VIF and correlation with the target variable
+
+selected_vars <- c()
+
+while (length(selected_vars) < 8) {
+  remaining_vars <- setdiff(names(vif_values), selected_vars)
+  min_vif_var <- remaining_vars[which.min(vif_values[remaining_vars])]
+  selected_vars <- c(selected_vars, min_vif_var)
+  
+  # calculate correlation with the target variable for the selected variables
+  
+  #cor_with_target <- cor(varr[,selected_vars], varr$dia_growth_cm_yr)
+  
+  # Check if there are any variables with VIF > 10 and remove the one with highest VIF values
+  
+vif_values <- calculate_vif(varr[,c("dia_growth_cm_yr", selected_vars)])
+
+if (any(vif_values > 15)) {
+  remove_var <- selected_vars[which.max(vif_values[-1])]
+  selected_vars <- setdiff(selected_vars, remove_var)
+  }
+}
+
+# Step 3 : create a new data set with selected variables
+selected_data <- dat[,c(selected_vars,"ba_growth_ha")]
+```
+
+```{r, echo=FALSE, message=FALSE}
+mc <- data.frame(Var1 = names(selected_data[,-length(selected_data)]))
+cof <- data.frame(as.table((calculate_vif(selected_vars))))
+
+mcl <- left_join(mc,cof, by = "Var1")
+
+knitr::kable(mcl, caption = "Selected variables with thier VIF values", col.names = c("variable", "VIF values"), digits = 2)
+```
+
+## RandomForest Regressor
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(randomForest)
+dg <- randomForest(ba_growth_ha~., data = dat, na.action = na.omit, mtry = 5)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Output to be present as PNG file 
+# Plot the error vs the number of trees graph
+plot(dg, main = "")
+  
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+feature_importance <- as.data.frame(as.table(importance(dg)))[,-2] %>%
+  arrange(desc(Freq))
+
+knitr::kable(feature_importance, caption = 'Importance of feature in the model', col.names = c("Features", "IncNode Purity Value"))
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+feature_importance <- importance(dg)
+
+# Create a data frame from the feature importances
+importance_df <- data.frame(Feature = rownames(feature_importance), Importance = feature_importance[, "IncNodePurity"])
+
+# Sort the data frame in descending order based on importance
+importance_df <- importance_df[order(-importance_df$Importance), ]
+
+# Create the bar plot
+library(ggplot2)
+
+ggplot(importance_df, aes(x = reorder(Feature, Importance), y = Importance)) +
+  geom_bar(stat = "identity", fill = "dodgerblue") +
+  geom_text(aes(label = round(Importance, 2)), angle = 90, hjust = -0.1, vjust = -0.5, size = 3.5) +  # Adding text labels with rounded values
+  labs(x = "Features", y = "IncNodePurity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylim(0, max(importance_df$Importance) * 1.2) 
+
+```
+
+

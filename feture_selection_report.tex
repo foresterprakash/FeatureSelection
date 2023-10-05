@@ -1,0 +1,423 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[left = 2.5cm, right = 2.5cm, top = 2.5cm, bottom =
+2cm]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{float}
+\usepackage{sectsty}
+\usepackage{paralist}
+\usepackage{setspace}\spacing{1.5}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{dcolumn}
+\usepackage{natbib}\bibliographystyle{agsm}
+\usepackage[nottoc, numbib]{tocbibind}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\allsectionsfont{\raggedright}
+\subsectionfont{\raggedright}
+\subsubsectionfont{\raggedright}
+
+\vspace{0cm}
+
+\pagenumbering{gobble}
+
+\begin{centering}
+
+\Large
+
+\doublespacing
+
+\bf Thesis Report
+
+\bf on
+
+\bf FACTORS DETERMINING DIAMETER GROWTH OF SHOREA ROBUSTA (SAL)
+
+
+
+\begin{center}\includegraphics[width=0.5\linewidth]{AFU_logo} \end{center}
+
+
+\normalsize
+
+\Large
+
+\bf Agriculture and Forestry University
+
+
+\bf Forestry Campus, Hetauda
+
+\vspace{1cm}
+
+\normalsize
+
+\singlespacing
+
+By
+
+\vspace{0.5 cm}
+
+\Large
+
+\bf Binita Ghimire
+
+\Large
+
+\bf B.Sc. Forestry
+
+\bf Fourth Year (Second Semester)
+
+\vspace{1cm}
+
+\normalsize
+
+2023-08-01
+
+\end{centering}
+
+\newpage
+
+\pagenumbering{roman}
+\newpage
+\fontsize{12}{18}
+\tableofcontents
+
+\newpage
+
+\listoftables
+\listoffigures
+
+\newpage
+
+\clearpage
+\pagenumbering{arabic}
+\fontsize{12}{18}
+
+\hypertarget{methodology}{%
+\section{Methodology}\label{methodology}}
+
+\hypertarget{study-area}{%
+\subsection{Study Area}\label{study-area}}
+
+\hypertarget{source-of-data}{%
+\subsection{Source of Data}\label{source-of-data}}
+
+\hypertarget{data-analysis}{%
+\subsection{Data analysis}\label{data-analysis}}
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+Tree diameter growth from different permanent sample plots.
+
+\hypertarget{correlation-for-feature-selection}{%
+\subsection{Correlation for Feature
+Selection}\label{correlation-for-feature-selection}}
+
+Correlation method is simplest method, widely used for the variables
+having linear relationship, feature selection for modelling. Firstly,
+correlation with climatic and topographic variables is examined using
+both methods, i.e., Pearsons and spearmans Rank method.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3605}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3140}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3256}}@{}}
+\caption{Correlation Coefficient of different variables with diamater
+growth in cm per year}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Variables
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Correlation coef (Pearson)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Correlation coef (Spearman)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Variables
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Correlation coef (Pearson)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Correlation coef (Spearman)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+diameter & 0.13 & 0.14 \\
+palmer\_drought\_sensitive\_index & -0.16 & -0.17 \\
+climate\_water\_deficit & 0.05 & 0.06 \\
+precipitation\_accumulation & 0.05 & 0.04 \\
+soil\_moisture & 0.13 & 0.13 \\
+min\_temperature & 0.22 & 0.24 \\
+max\_temperature & 0.20 & 0.22 \\
+wind\_speed\_at\_10m & -0.07 & -0.04 \\
+slope.map\_nepal & -0.14 & -0.18 \\
+elevation\_nepal & -0.23 & -0.23 \\
+dia\_growth\_cm\_yr & 1.00 & 1.00 \\
+\end{longtable}
+
+\begin{longtable}[]{@{}lr@{}}
+\caption{Correlation Coefficient of soil properties with diamater growth
+in cm per year}\tabularnewline
+\toprule\noalign{}
+Variables & Correlation coef (Pearson) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Variables & Correlation coef (Pearson) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+bd\_g/cm3 & 0.15 \\
+soc\_t/ha & 0.09 \\
+dia\_growth\_cm\_yr & 1.00 \\
+\end{longtable}
+
+It seems no variables has effective correlation with diameter growth
+(Table 1 and Table 2). Despite having lesser correlation variables like
+original diameter, soil moisture temperature, slope, bulk density and
+elevation are correlated. However, showing insignificant correlations
+between dependent and independent group of variables does not rule out
+the relationship between variables. The data may show non linear
+relationship with dependent variables. Some other methods of feature
+selection are described in later results.
+
+\hypertarget{stepwise-regression}{%
+\subsection{Stepwise Regression}\label{stepwise-regression}}
+
+This method involves fitting a regression model with all potential
+predictor variables and then alliteratively adding or removing variables
+based on their significance until an optimal subset is obtained.
+
+\begin{verbatim}
+## Start:  AIC=-10461.69
+## dia_growth_cm_yr ~ diameter + palmer_drought_sensitive_index + 
+##     climate_water_deficit + precipitation_accumulation + soil_moisture + 
+##     min_temperature + max_temperature + wind_speed_at_10m + slope.map_nepal + 
+##     elevation_nepal
+## 
+##                                  Df Sum of Sq    RSS    AIC
+## - climate_water_deficit           1   0.00364 183.37 -10464
+## - max_temperature                 1   0.01035 183.38 -10464
+## - wind_speed_at_10m               1   0.02670 183.40 -10463
+## - min_temperature                 1   0.06524 183.44 -10462
+## - slope.map_nepal                 1   0.07707 183.45 -10462
+## <none>                                        183.37 -10462
+## - precipitation_accumulation      1   0.15270 183.52 -10461
+## - soil_moisture                   1   0.20595 183.58 -10460
+## - elevation_nepal                 1   0.31137 183.68 -10458
+## - diameter                        1   1.37540 184.75 -10437
+## - palmer_drought_sensitive_index  1   2.24328 185.61 -10421
+## 
+## Step:  AIC=-10463.62
+## dia_growth_cm_yr ~ diameter + palmer_drought_sensitive_index + 
+##     precipitation_accumulation + soil_moisture + min_temperature + 
+##     max_temperature + wind_speed_at_10m + slope.map_nepal + elevation_nepal
+## 
+##                                  Df Sum of Sq    RSS    AIC
+## - wind_speed_at_10m               1   0.02313 183.40 -10465
+## - max_temperature                 1   0.04771 183.42 -10465
+## - slope.map_nepal                 1   0.07349 183.45 -10464
+## <none>                                        183.37 -10464
+## - min_temperature                 1   0.12614 183.50 -10463
+## + climate_water_deficit           1   0.00364 183.37 -10462
+## - soil_moisture                   1   0.20852 183.58 -10462
+## - precipitation_accumulation      1   0.30120 183.68 -10460
+## - elevation_nepal                 1   0.34571 183.72 -10459
+## - diameter                        1   1.38320 184.76 -10439
+## - palmer_drought_sensitive_index  1   2.28916 185.66 -10422
+## 
+## Step:  AIC=-10465.17
+## dia_growth_cm_yr ~ diameter + palmer_drought_sensitive_index + 
+##     precipitation_accumulation + soil_moisture + min_temperature + 
+##     max_temperature + slope.map_nepal + elevation_nepal
+## 
+##                                  Df Sum of Sq    RSS    AIC
+## - max_temperature                 1   0.03415 183.43 -10466
+## - slope.map_nepal                 1   0.06397 183.46 -10466
+## <none>                                        183.40 -10465
+## - min_temperature                 1   0.11017 183.51 -10465
+## + wind_speed_at_10m               1   0.02313 183.37 -10464
+## + climate_water_deficit           1   0.00006 183.40 -10463
+## - soil_moisture                   1   0.24948 183.65 -10462
+## - precipitation_accumulation      1   0.27917 183.68 -10462
+## - elevation_nepal                 1   0.33061 183.73 -10461
+## - diameter                        1   1.40694 184.80 -10440
+## - palmer_drought_sensitive_index  1   2.67229 186.07 -10416
+## 
+## Step:  AIC=-10466.52
+## dia_growth_cm_yr ~ diameter + palmer_drought_sensitive_index + 
+##     precipitation_accumulation + soil_moisture + min_temperature + 
+##     slope.map_nepal + elevation_nepal
+## 
+##                                  Df Sum of Sq    RSS    AIC
+## - slope.map_nepal                 1   0.06165 183.49 -10467
+## - min_temperature                 1   0.09167 183.52 -10467
+## <none>                                        183.43 -10466
+## + max_temperature                 1   0.03415 183.40 -10465
+## + climate_water_deficit           1   0.02129 183.41 -10465
+## + wind_speed_at_10m               1   0.00957 183.42 -10465
+## - soil_moisture                   1   0.21788 183.65 -10464
+## - elevation_nepal                 1   0.30023 183.73 -10463
+## - precipitation_accumulation      1   0.74435 184.18 -10454
+## - diameter                        1   1.42365 184.85 -10441
+## - palmer_drought_sensitive_index  1   2.64824 186.08 -10418
+## 
+## Step:  AIC=-10467.33
+## dia_growth_cm_yr ~ diameter + palmer_drought_sensitive_index + 
+##     precipitation_accumulation + soil_moisture + min_temperature + 
+##     elevation_nepal
+## 
+##                                  Df Sum of Sq    RSS    AIC
+## <none>                                        183.49 -10467
+## - min_temperature                 1   0.10776 183.60 -10467
+## + slope.map_nepal                 1   0.06165 183.43 -10466
+## + max_temperature                 1   0.03184 183.46 -10466
+## + climate_water_deficit           1   0.01175 183.48 -10466
+## + wind_speed_at_10m               1   0.00441 183.49 -10465
+## - soil_moisture                   1   0.24593 183.74 -10465
+## - elevation_nepal                 1   0.36774 183.86 -10462
+## - precipitation_accumulation      1   0.68537 184.18 -10456
+## - diameter                        1   1.38762 184.88 -10443
+## - palmer_drought_sensitive_index  1   2.69563 186.19 -10418
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = dia_growth_cm_yr ~ diameter + palmer_drought_sensitive_index + 
+##     precipitation_accumulation + soil_moisture + min_temperature + 
+##     elevation_nepal, data = varr_ws)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.45564 -0.16870 -0.03791  0.13850  0.73555 
+## 
+## Coefficients:
+##                                  Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                    -3.089e-02  1.194e-01  -0.259 0.795872    
+## diameter                        1.269e-03  2.455e-04   5.170 2.48e-07 ***
+## palmer_drought_sensitive_index -4.417e-04  6.130e-05  -7.205 7.04e-13 ***
+## precipitation_accumulation      1.259e-03  3.464e-04   3.633 0.000284 ***
+## soil_moisture                   1.471e-04  6.757e-05   2.176 0.029596 *  
+## min_temperature                 8.401e-04  5.831e-04   1.441 0.149769    
+## elevation_nepal                -8.763e-05  3.293e-05  -2.661 0.007819 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2279 on 3534 degrees of freedom
+## Multiple R-squared:  0.07825,    Adjusted R-squared:  0.07668 
+## F-statistic:    50 on 6 and 3534 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = dia_growth_cm_yr ~ ., data = varr_ws[, -c(9)])
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.45623 -0.16742 -0.03811  0.13856  0.73418 
+## 
+## Coefficients:
+##                                  Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                     4.074e-02  2.375e-01   0.172  0.86381    
+## diameter                        1.255e-03  2.466e-04   5.087 3.82e-07 ***
+## palmer_drought_sensitive_index -4.607e-04  7.082e-05  -6.505 8.84e-11 ***
+## climate_water_deficit           3.104e-06  9.428e-05   0.033  0.97374    
+## precipitation_accumulation      1.107e-03  6.423e-04   1.724  0.08484 .  
+## soil_moisture                   1.669e-04  7.782e-05   2.145  0.03204 *  
+## min_temperature                 1.549e-03  1.176e-03   1.318  0.18758    
+## max_temperature                -8.303e-04  1.328e-03  -0.625  0.53190    
+## wind_speed_at_10m               3.942e-04  8.202e-04   0.481  0.63079    
+## elevation_nepal                -9.612e-05  3.474e-05  -2.767  0.00569 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.2279 on 3531 degrees of freedom
+## Multiple R-squared:  0.07848,    Adjusted R-squared:  0.07613 
+## F-statistic: 33.41 on 9 and 3531 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\end{document}
